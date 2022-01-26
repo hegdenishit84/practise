@@ -8,10 +8,10 @@ resource "aws_codebuild_project" "tf-plan" {
   }
 
   environment {
-    compute_type                = "BUILD_GENERAL1_SMALL_1"
+    compute_type                = "BUILD_GENERAL1_SMALL_2"
     image                       = var.pipeline_container
     type                        = "LINUX_CONTAINER"
-    image_pull_credentials_type = "CODEBUILD_1"
+    image_pull_credentials_type = "CODEBUILD_2"
   }
   source {
     type      = "CODEPIPELINE"
@@ -29,10 +29,10 @@ resource "aws_codebuild_project" "tf-apply" {
   }
 
   environment {
-    compute_type                = "BUILD_GENERAL1_SMALL_1"
+    compute_type                = "BUILD_GENERAL1_SMALL_2"
     image                       = var.pipeline_container
-    type                        = "LINUX_CONTAINER_1"
-    image_pull_credentials_type = "CODEBUILD"
+    type                        = "LINUX_CONTAINER"
+    image_pull_credentials_type = "CODEBUILD_2"
   }
   source {
     type      = "CODEPIPELINE"
