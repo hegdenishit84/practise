@@ -36,7 +36,28 @@ resource "aws_codebuild_project" "tf-apply" {
   }
   source {
     type      = "CODEPIPELINE"
-    buildspec = file("buildspec/apply-buildspec.yml")
+    buildspec = file("buildspec/apply-buildspec.ym")
+  }
+}
+
+resource "aws_codebuild_project" "tf-apply_duplicate" {
+  name         = "tf-cicd-apply"
+  description  = "Apply stage for terraform"
+  service_role = aws_iam_role.tf-codebuild-role.arn
+
+  artifacts {
+    type = "CODEPIPELINE"
+  }
+
+  environment {
+    compute_type                = "BUILD_GENERAL1_SMALL_2"
+    image                       = var.pipeline_container
+    type                        = "LINUX_CONTAINER"
+    image_pull_credentials_type = "CODEBUILD_2"
+  }
+  source {
+    type      = "CODEPIPELINE111"
+    buildspec = file("buildspec/apply-buildspec.ym")
   }
 }
 
